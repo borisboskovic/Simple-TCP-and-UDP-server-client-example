@@ -14,8 +14,6 @@ namespace TCP_Client_CLI
             byte[] data = new byte[1024];
             string input, stringData;
 
-            bool connected = false;
-            while (!connected) { }
             Console.WriteLine("Unesite adresu:");
             string adresa = Console.ReadLine();
             Console.WriteLine("Unesite broj porta:");
@@ -34,6 +32,7 @@ namespace TCP_Client_CLI
                 return;
             }
 
+            //Prihvatanje i ispisivanje pozdravne poruke od servera
             int recv = server.Receive(data);
             stringData = Encoding.ASCII.GetString(data, 0, recv);
             Console.WriteLine(stringData);
