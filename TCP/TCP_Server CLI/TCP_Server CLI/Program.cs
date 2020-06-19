@@ -17,15 +17,15 @@ namespace TCP_Server_CLI
             int port;
             do
             {
-                System.Console.Write("Unesite zeljeni broj porta[2500-3500]: ");
+                Console.Write("Unesite zeljeni broj porta[2500-3500]: ");
                 port = Convert.ToInt32(Console.ReadLine());
             } while (port < 2500 || port > 3500);
 
             //Server osluškuje na unesenom portu, za bilo koju adresu
-            IPEndPoint serverep = new IPEndPoint(IPAddress.Any, port);
+            IPEndPoint ipep = new IPEndPoint(IPAddress.Any, port);
             Socket newsock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            newsock.Bind(serverep);
+            newsock.Bind(ipep);
             newsock.Listen(10);
 
             do
@@ -38,7 +38,7 @@ namespace TCP_Server_CLI
                 Console.WriteLine("Povezano sa {0} na portu {1}", clientep.Address, clientep.Port);
 
                 //Nakon povezivanja klijentu se salje poruka dobrodoslice
-                string welcome = "Pozdrav, uspjesno ste se povezali sa " + serverep.Address + " na portu " + serverep.Port + "\nSada mozete slati poruke";
+                string welcome = "Pozdrav, uspjesno ste se povezali sa " + ipep.Address + " na portu " + ipep.Port + "\nSada mozete slati poruke";
                 data = Encoding.ASCII.GetBytes(welcome);
                 client.Send(data, data.Length, SocketFlags.None);
 
